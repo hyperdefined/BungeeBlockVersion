@@ -1,0 +1,4 @@
+name: BungeeBlockVersion
+version: ${project.version}
+main: lol.hyper.bungeeblockversion.BungeeBlockVersion
+author: hyperdefined

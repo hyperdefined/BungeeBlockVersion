@@ -1,0 +1,33 @@
+# These versions will NOT be allowed to connect.
+# These versions MUST be the version number. You can check the numbers here: https://wiki.vg/Protocol_version_numbers
+# By default, all versions are listed here.
+versions:
+  - 47
+  - 107
+  - 108
+  - 109
+  - 110
+  - 210
+  - 315
+  - 316
+  - 335
+  - 338
+  - 340
+  - 393
+  - 401
+  - 404
+  - 477
+  - 480
+  - 485
+  - 490
+  - 498
+  - 573
+  - 575
+  - 578
+  - 735
+  - 736
+  - 751
+  - 753
+
+# Send this message if someone connects with a blocked version.
+disconnect-message: "&cYou cannot connect with this version!"
