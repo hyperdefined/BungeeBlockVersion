@@ -4,7 +4,7 @@
 A Bungee/Waterfall plugin that will block players from connecting with certain versions.
 ## Features
 - Block players if they are using a version that is on the list.
-- Reload using `/bbvreload`.
+- Reload using `/bbvreload`. (bbv.reload)
 
 ## Config
 This is the config. You need to use the version number for a version. To find them, go [here](https://wiki.vg/Protocol_version_numbers).
