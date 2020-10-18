@@ -34,6 +34,5 @@ versions:
 # If you don't want to use {VERSIONS}, just remove it.
 disconnect-message: "&cYou cannot connect with this version! We only allow version(s) {VERSIONS}."
 
-
 # No touch please :)
 config-version: 1
