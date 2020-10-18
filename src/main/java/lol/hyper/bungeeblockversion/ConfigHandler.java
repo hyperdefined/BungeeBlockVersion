@@ -23,9 +23,9 @@ public class ConfigHandler {
                 File path = new File("plugins" + File.separator + "BungeeBlockVersion");
                 if (path.mkdir()) {
                     Files.copy(is, configFile.toPath());
-                    BungeeBlockVersion.getInstance().logger.info("[BungeeBlockVersion] Copying default config...");
+                    BungeeBlockVersion.getInstance().logger.info("Copying default config...");
                 } else {
-                    BungeeBlockVersion.getInstance().logger.warning("[BungeeBlockVersion] Unable to create config folder!");
+                    BungeeBlockVersion.getInstance().logger.warning("Unable to create config folder!");
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -35,18 +35,18 @@ public class ConfigHandler {
             configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
             versions = configuration.getIntList("versions");
             if (versions.size() == 0) {
-                BungeeBlockVersion.getInstance().logger.warning("[BungeeBlockVersion] There are no versions listed in the config!");
+                BungeeBlockVersion.getInstance().logger.warning("There are no versions listed in the config!");
             } else {
-                BungeeBlockVersion.getInstance().logger.info("[BungeeBlockVersion] Loaded " + versions.size() + " versions!");
+                BungeeBlockVersion.getInstance().logger.info("Loaded " + versions.size() + " versions!");
             }
             for (Integer i : versions) {
                 if (!VersionToStrings.versionStrings.containsKey(i)) {
-                    BungeeBlockVersion.getInstance().logger.warning("[BungeeBlockVersion] Version " + i + " is NOT a valid version number!");
+                    BungeeBlockVersion.getInstance().logger.warning("Version " + i + " is NOT a valid version number!");
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
-            BungeeBlockVersion.getInstance().logger.severe("[BungeeBlockVersion] Unable to load configuration file!");
+            BungeeBlockVersion.getInstance().logger.severe("Unable to load configuration file!");
         }
     }
 }
