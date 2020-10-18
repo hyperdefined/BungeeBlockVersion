@@ -8,6 +8,8 @@ import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
 
+import java.util.logging.Logger;
+
 public final class BungeeBlockVersion extends Plugin implements Listener {
 
     private static BungeeBlockVersion instance;
@@ -16,12 +18,15 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
         return instance;
     }
 
+    public Logger logger = this.getLogger();
+
     @Override
     public void onEnable() {
         instance = this;
         ConfigHandler.loadConfig();
         ProxyServer.getInstance().getPluginManager().registerListener(this, this);
         getProxy().getPluginManager().registerCommand(this, new CommandReload("bbvreload"));
+        VersionToStrings.init();
     }
 
     @Override
@@ -37,8 +42,11 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
         
         if (ConfigHandler.versions.contains(e.getConnection().getVersion())) {
             e.setCancelled(true);
-            e.setCancelReason(new TextComponent(ChatColor.translateAlternateColorCodes('&', ConfigHandler.configuration.getString("disconnect-message"))));
-            getProxy().getLogger().info("Blocking player " + e.getConnection().getName() + " because they are playing on version " + e.getConnection().getVersion() + " which is blocked!");
+            String allowedVersions = VersionToStrings.versionBuilder(ConfigHandler.versions.toArray(new Integer[0]));
+            String blockedMessage = ConfigHandler.configuration.getString("disconnect-message");
+            blockedMessage.replace("{VERSIONS}", allowedVersions);
+            e.setCancelReason(new TextComponent(ChatColor.translateAlternateColorCodes('&', blockedMessage)));
+            logger.info("Blocking player " + e.getConnection().getName() + " because they are playing on version " + e.getConnection().getVersion() + " which is blocked!");
         }
     }
 }
