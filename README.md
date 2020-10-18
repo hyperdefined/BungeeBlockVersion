@@ -4,6 +4,7 @@
 A Bungee/Waterfall plugin that will block players from connecting with certain versions.
 ## Features
 - Block players if they are using a version that is on the list.
+- Custom disconnect message.
 - Reload using `/bbvreload`. (bbv.reload)
 
 ## Config
@@ -21,5 +22,10 @@ versions:
   - ...
 
 # Send this message if someone connects with a blocked version.
-disconnect-message: "&cYou cannot connect with this version!"
+# Use {VERSIONS} to show what versions your server uses. It will display like "1.8 to 1.16.3" or whatever.
+# If you don't want to use {VERSIONS}, just remove it.
+disconnect-message: "&cYou cannot connect with this version! We only allow version(s) {VERSIONS}."
+
+# No touch please :)
+config-version: 1
 ```
