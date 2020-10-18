@@ -44,7 +44,9 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
             e.setCancelled(true);
             String allowedVersions = VersionToStrings.versionBuilder(ConfigHandler.versions.toArray(new Integer[0]));
             String blockedMessage = ConfigHandler.configuration.getString("disconnect-message");
-            blockedMessage = blockedMessage.replace("{VERSIONS}", allowedVersions);
+            if (blockedMessage.contains("{VERSIONS}")) {
+                blockedMessage = blockedMessage.replace("{VERSIONS}", allowedVersions);
+            }
             e.setCancelReason(new TextComponent(ChatColor.translateAlternateColorCodes('&', blockedMessage)));
             logger.info("Blocking player " + e.getConnection().getName() + " because they are playing on version " + VersionToStrings.versionStrings.get(e.getConnection().getVersion()) + " which is blocked!");
         }
