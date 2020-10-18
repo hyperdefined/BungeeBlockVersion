@@ -31,6 +31,10 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
 
     @EventHandler
     public void onPreConnect(LoginEvent e) {
+        if (e.isCancelled()) {
+            return;
+        }
+        
         if (ConfigHandler.versions.contains(e.getConnection().getVersion())) {
             e.setCancelled(true);
             e.setCancelReason(new TextComponent(ChatColor.translateAlternateColorCodes('&', ConfigHandler.configuration.getString("disconnect-message"))));
