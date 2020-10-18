@@ -30,4 +30,4 @@ versions:
   - 753
 
 # Send this message if someone connects with a blocked version.
-disconnect-message: "&cYou cannot connect with this version!"
+disconnect-message: "&cYou cannot connect with this version! We only allow version(s) {VERSIONS}."
