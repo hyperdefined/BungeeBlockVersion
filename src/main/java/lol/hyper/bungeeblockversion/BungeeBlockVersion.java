@@ -27,6 +27,14 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
         ConfigHandler.loadConfig();
         ProxyServer.getInstance().getPluginManager().registerListener(this, this);
         getProxy().getPluginManager().registerCommand(this, new CommandReload("bbvreload"));
+
+        new UpdateChecker(this, 84685).getVersion(version -> {
+            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+                logger.info("You are running the latest version.");
+            } else {
+                logger.info("There is a new version available! Please download at https://www.spigotmc.org/resources/bungeeblockversion.84685/");
+            }
+        });
     }
 
     @Override

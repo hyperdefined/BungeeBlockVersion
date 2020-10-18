@@ -14,6 +14,7 @@ public class ConfigHandler {
 
     public static Configuration configuration;
     public static List<Integer> versions;
+    public static final String CONFIG_VERSION = "1";
 
     public static void loadConfig() {
         File configFile = new File("plugins" + File.separator + "BungeeBlockVersion", "config.yml");
@@ -34,6 +35,9 @@ public class ConfigHandler {
         try {
             configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
             versions = configuration.getIntList("versions");
+            if (configuration.getString("config-version").equalsIgnoreCase(CONFIG_VERSION)) {
+                BungeeBlockVersion.getInstance().logger.warning("Your config is outdated! Please delete config.yml and regen this file! Some features may not work if you don't!");
+            }
             if (versions.size() == 0) {
                 BungeeBlockVersion.getInstance().logger.warning("There are no versions listed in the config!");
             } else {
