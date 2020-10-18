@@ -23,10 +23,10 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
     @Override
     public void onEnable() {
         instance = this;
+        VersionToStrings.init();
         ConfigHandler.loadConfig();
         ProxyServer.getInstance().getPluginManager().registerListener(this, this);
         getProxy().getPluginManager().registerCommand(this, new CommandReload("bbvreload"));
-        VersionToStrings.init();
     }
 
     @Override
