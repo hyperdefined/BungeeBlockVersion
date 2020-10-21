@@ -12,21 +12,17 @@ import java.util.logging.Logger;
 
 public final class BungeeBlockVersion extends Plugin implements Listener {
 
-    private static BungeeBlockVersion instance;
-
-    public static BungeeBlockVersion getInstance() {
-        return instance;
-    }
-
     public Logger logger = this.getLogger();
+
+    public ConfigHandler configHandler;
 
     @Override
     public void onEnable() {
-        instance = this;
+        configHandler = new ConfigHandler(this);
         VersionToStrings.init();
-        ConfigHandler.loadConfig();
+        configHandler.loadConfig();
         ProxyServer.getInstance().getPluginManager().registerListener(this, this);
-        getProxy().getPluginManager().registerCommand(this, new CommandReload("bbvreload"));
+        getProxy().getPluginManager().registerCommand(this, new CommandReload("bbvreload", configHandler));
 
         new UpdateChecker(this, 84685).getVersion(version -> {
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {

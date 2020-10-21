@@ -19,7 +19,7 @@ public class UpdateChecker {
     }
 
     public void getVersion(final Consumer<String> consumer) {
-        BungeeBlockVersion.getInstance().getProxy().getScheduler().runAsync(this.plugin, () -> {
+        plugin.getProxy().getScheduler().runAsync(this.plugin, () -> {
             try (InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + this.resourceId).openStream(); Scanner scanner = new Scanner(inputStream)) {
                 if (scanner.hasNext()) {
                     consumer.accept(scanner.next());
