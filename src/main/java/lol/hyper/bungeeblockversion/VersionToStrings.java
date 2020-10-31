@@ -1,7 +1,9 @@
 package lol.hyper.bungeeblockversion;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class VersionToStrings {
 
@@ -37,13 +39,17 @@ public class VersionToStrings {
         versionStrings.put(753, "1.16.3");
     }
 
-    public static String versionBuilder(Integer[] versions) {
-        if (versions.length > 1) {
-            int minVersion = Collections.min(ConfigHandler.versions);
-            int maxVersion = Collections.max(ConfigHandler.versions);
-            return versionStrings.get(minVersion) + " to " + versionStrings.get(maxVersion);
-        } else {
-            return versionStrings.get(versions[0]);
-        }
+    /**
+     * Builds a string that will show what versions the server supports. Example: 1.8 to 1.14.4
+     * @param deniedVersions Versions to deny.
+     * @return Returns the string of versions.
+     */
+    public static String allowedVersions(List<Integer> deniedVersions) {
+        List<Integer> allVersions = new ArrayList<>(versionStrings.keySet());
+        allVersions.removeAll(deniedVersions);
+        int minVersion = Collections.min(allVersions);
+        int maxVersion = Collections.max(allVersions);
+
+        return versionStrings.get(minVersion) + " to " + versionStrings.get(maxVersion);
     }
 }

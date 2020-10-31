@@ -2,12 +2,15 @@ package lol.hyper.bungeeblockversion;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.ServerPing;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.event.LoginEvent;
+import net.md_5.bungee.api.event.ProxyPingEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
 
+import java.util.Collections;
 import java.util.logging.Logger;
 
 public final class BungeeBlockVersion extends Plugin implements Listener {
@@ -39,20 +42,29 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
     }
 
     @EventHandler
-    public void onPreConnect(LoginEvent e) {
-        if (e.isCancelled()) {
+    public void onPreConnect(LoginEvent event) {
+        if (event.isCancelled()) {
             return;
         }
         
-        if (ConfigHandler.versions.contains(e.getConnection().getVersion())) {
-            e.setCancelled(true);
-            String allowedVersions = VersionToStrings.versionBuilder(ConfigHandler.versions.toArray(new Integer[0]));
+        if (ConfigHandler.versions.contains(event.getConnection().getVersion())) {
+            event.setCancelled(true);
+            String allowedVersions = VersionToStrings.allowedVersions(ConfigHandler.versions);
             String blockedMessage = ConfigHandler.configuration.getString("disconnect-message");
             if (blockedMessage.contains("{VERSIONS}")) {
                 blockedMessage = blockedMessage.replace("{VERSIONS}", allowedVersions);
             }
-            e.setCancelReason(new TextComponent(ChatColor.translateAlternateColorCodes('&', blockedMessage)));
-            logger.info("Blocking player " + e.getConnection().getName() + " because they are playing on version " + VersionToStrings.versionStrings.get(e.getConnection().getVersion()) + " which is blocked!");
+            event.setCancelReason(new TextComponent(ChatColor.translateAlternateColorCodes('&', blockedMessage)));
+            logger.info("Blocking player " + event.getConnection().getName() + " because they are playing on version " + VersionToStrings.versionStrings.get(event.getConnection().getVersion()) + " which is blocked!");
         }
+    }
+    
+    @EventHandler
+    public void onServerPing(ProxyPingEvent event) {
+        ServerPing.Protocol protocol = event.getResponse().getVersion();
+        if (ConfigHandler.versions.contains(protocol.getProtocol())) {
+            protocol.setProtocol(Collections.min(ConfigHandler.versions));
+        }
+        protocol.setName(VersionToStrings.allowedVersions(ConfigHandler.versions));
     }
 }
