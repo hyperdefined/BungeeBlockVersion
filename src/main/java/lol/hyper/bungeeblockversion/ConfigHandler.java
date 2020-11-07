@@ -42,7 +42,8 @@ public class ConfigHandler {
             configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
             versions = configuration.getIntList("versions");
             if (configuration.getInt("config-version") != CONFIG_VERSION) {
-                bungeeBlockVersion.logger.warning("Your config is outdated! Please delete config.yml and regen it. Some features may not work.");
+                bungeeBlockVersion.logger.warning("Your config is outdated. We will attempt to load your current config. However, things might not work!");
+                bungeeBlockVersion.logger.warning("To fix this, delete your current config and let the server remake it.");
             }
             if (versions.size() == 0) {
                 bungeeBlockVersion.logger.warning("There are no versions listed in the config!");
