@@ -61,6 +61,10 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
     
     @EventHandler
     public void onServerPing(ProxyPingEvent event) {
+        if (!ConfigHandler.configuration.getBoolean("send-versions-if-outdated")) {
+            return;
+        }
+
         ServerPing.Protocol protocol = event.getResponse().getVersion();
         if (ConfigHandler.versions.contains(protocol.getProtocol())) {
             protocol.setProtocol(Collections.min(ConfigHandler.versions));

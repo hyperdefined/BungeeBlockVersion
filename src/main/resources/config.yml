@@ -34,5 +34,9 @@ versions:
 # If you don't want to use {VERSIONS}, just remove it.
 disconnect-message: "&cYou cannot connect with this version! We only allow version(s) {VERSIONS}."
 
+# If someone is playing on a blocked version, then show them the correct versions. Replaces the outdated version message on the server list.
+# This feature is not fully finished yet.
+send-versions-if-outdated: false
+
 # No touch please :)
 config-version: 1

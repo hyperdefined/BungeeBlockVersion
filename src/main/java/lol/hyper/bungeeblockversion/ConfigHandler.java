@@ -14,7 +14,7 @@ public class ConfigHandler {
 
     public static Configuration configuration;
     public static List<Integer> versions;
-    public static final Integer CONFIG_VERSION = 1;
+    public static final Integer CONFIG_VERSION = 2;
 
     private final BungeeBlockVersion bungeeBlockVersion;
 
