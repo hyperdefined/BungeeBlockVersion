@@ -39,4 +39,4 @@ disconnect-message: "&cYou cannot connect with this version! We only allow versi
 send-versions-if-outdated: false
 
 # No touch please :)
-config-version: 1
+config-version: 2
