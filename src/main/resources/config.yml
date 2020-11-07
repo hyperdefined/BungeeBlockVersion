@@ -28,6 +28,7 @@ versions:
   - 736
   - 751
   - 753
+  - 754
 
 # Send this message if someone connects with a blocked version.
 # Use {VERSIONS} to show what versions your server uses. It will display like "1.8 to 1.16.3" or whatever.
