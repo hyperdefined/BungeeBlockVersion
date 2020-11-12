@@ -26,6 +26,7 @@ import net.md_5.bungee.api.event.ProxyPingEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
+import org.bstats.bungeecord.Metrics;
 
 import java.util.Collections;
 import java.util.logging.Logger;
@@ -51,6 +52,7 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
                 logger.info("There is a new version available! Please download at https://www.spigotmc.org/resources/bungeeblockversion.84685/");
             }
         });
+        Metrics metrics = new Metrics(this, 9392);
     }
 
     @Override
