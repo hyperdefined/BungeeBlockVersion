@@ -3,4 +3,5 @@
 
 A Bungee/Waterfall plugin that will block players from connecting with certain versions. It will not even allow the player to attempt to connect to a server inside your Bungee/Waterfall network.
 
-[Documentation and more info](https://hyper.lol/minecraft-plugins/bungeeblockversion/).
+- [Documentation and more info](https://hyper.lol/minecraft-plugins/bungeeblockversion/).
+- [SpigotMC Page](https://www.spigotmc.org/resources/bungeeblockversion.84685/).
