@@ -7,7 +7,6 @@ A Bungee/Waterfall plugin that will block players from connecting with certain v
 * Block players if they are using a version that is on the list.
 * Custom disconnect message.
 * Custom “outdated server” message. It will show your supported versions. This feature is not finished.
-* Reload using `/bbvreload`. Uses permission node `bbv.reload`.
 
 ## Documentation
 Visit the [wiki](https://github.com/hyperdefined/BungeeBlockVersion/wiki) for help.
