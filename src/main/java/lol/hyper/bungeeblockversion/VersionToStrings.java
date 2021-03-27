@@ -25,7 +25,7 @@ import java.util.List;
 public class VersionToStrings {
 
     // Set a list of version strings we can grab via the version number.
-    public static HashMap<Integer, String> versionStrings = new HashMap<>();
+    public static HashMap < Integer, String > versionStrings = new HashMap < > ();
 
     public static void init() {
         versionStrings.put(47, "1.8");
@@ -62,8 +62,8 @@ public class VersionToStrings {
      * @param deniedVersions Versions to deny.
      * @return Returns the string of versions.
      */
-    public static String allowedVersions(List<Integer> deniedVersions) {
-        List<Integer> allVersions = new ArrayList<>(versionStrings.keySet());
+    public static String allowedVersions(List < Integer > deniedVersions) {
+        List < Integer > allVersions = new ArrayList < > (versionStrings.keySet());
         allVersions.removeAll(deniedVersions);
         int minVersion = Collections.min(allVersions);
         int maxVersion = Collections.max(allVersions);

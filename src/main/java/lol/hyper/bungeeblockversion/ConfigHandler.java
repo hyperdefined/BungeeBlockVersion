@@ -30,7 +30,7 @@ import java.util.List;
 public class ConfigHandler {
 
     public static Configuration configuration;
-    public static List<Integer> versions;
+    public static List < Integer > versions;
     public static final Integer CONFIG_VERSION = 2;
 
     private final BungeeBlockVersion bungeeBlockVersion;
@@ -67,7 +67,7 @@ public class ConfigHandler {
             } else {
                 bungeeBlockVersion.logger.info("Loaded " + versions.size() + " versions!");
             }
-            for (Integer i : versions) {
+            for (Integer i: versions) {
                 if (!VersionToStrings.versionStrings.containsKey(i)) {
                     bungeeBlockVersion.logger.warning("Version " + i + " is NOT a valid version number!");
                 }
