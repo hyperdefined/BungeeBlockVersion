@@ -29,10 +29,9 @@ import java.util.List;
 
 public class ConfigHandler {
 
-    public static Configuration configuration;
-    public static List < Integer > versions;
     public static final Integer CONFIG_VERSION = 2;
-
+    public static Configuration configuration;
+    public static List<Integer> versions;
     private final BungeeBlockVersion bungeeBlockVersion;
 
     public ConfigHandler(BungeeBlockVersion bungeeBlockVersion) {
@@ -56,18 +55,21 @@ public class ConfigHandler {
             }
         }
         try {
-            configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
+            configuration =
+                    ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
             versions = configuration.getIntList("versions");
             if (configuration.getInt("config-version") != CONFIG_VERSION) {
-                bungeeBlockVersion.logger.warning("Your config is outdated. We will attempt to load your current config. However, things might not work!");
-                bungeeBlockVersion.logger.warning("To fix this, delete your current config and let the server remake it.");
+                bungeeBlockVersion.logger.warning(
+                        "Your config is outdated. We will attempt to load your current config. However, things might not work!");
+                bungeeBlockVersion.logger.warning(
+                        "To fix this, delete your current config and let the server remake it.");
             }
             if (versions.size() == 0) {
                 bungeeBlockVersion.logger.warning("There are no versions listed in the config!");
             } else {
                 bungeeBlockVersion.logger.info("Loaded " + versions.size() + " versions!");
             }
-            for (Integer i: versions) {
+            for (Integer i : versions) {
                 if (!VersionToStrings.versionStrings.containsKey(i)) {
                     bungeeBlockVersion.logger.warning("Version " + i + " is NOT a valid version number!");
                 }

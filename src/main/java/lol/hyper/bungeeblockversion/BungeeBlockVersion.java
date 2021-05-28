@@ -46,11 +46,12 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
         getProxy().getPluginManager().registerCommand(this, new CommandReload("bbvreload", configHandler));
 
         new UpdateChecker(this, 84685).getVersion(version -> {
-        if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
-            logger.info("You are running the latest version.");
-        } else {
-            logger.info("There is a new version available! Please download at https://www.spigotmc.org/resources/bungeeblockversion.84685/");
-        }
+            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+                logger.info("You are running the latest version.");
+            } else {
+                logger.info(
+                        "There is a new version available! Please download at https://www.spigotmc.org/resources/bungeeblockversion.84685/");
+            }
         });
         Metrics metrics = new Metrics(this, 9392);
     }
@@ -69,7 +70,8 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
                 blockedMessage = blockedMessage.replace("{VERSIONS}", allowedVersions);
             }
             event.setCancelReason(new TextComponent(ChatColor.translateAlternateColorCodes('&', blockedMessage)));
-            logger.info("Blocking player " + event.getConnection().getName() + " because they are playing on version " + VersionToStrings.versionStrings.get(event.getConnection().getVersion()) + " which is blocked!");
+            logger.info("Blocking player " + event.getConnection().getName() + " because they are playing on version "
+                    + VersionToStrings.versionStrings.get(event.getConnection().getVersion()) + " which is blocked!");
         }
     }
 

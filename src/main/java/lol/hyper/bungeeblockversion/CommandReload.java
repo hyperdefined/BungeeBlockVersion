@@ -25,6 +25,7 @@ import net.md_5.bungee.api.plugin.Command;
 public class CommandReload extends Command {
 
     private ConfigHandler configHandler;
+
     public CommandReload(String name, ConfigHandler configHandler) {
         super(name);
         this.configHandler = configHandler;
