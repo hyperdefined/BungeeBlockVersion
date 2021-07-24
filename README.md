@@ -17,7 +17,7 @@ A Bungee/Waterfall plugin that will block players from connecting with certain v
 * Custom “outdated server” message. It will show your supported versions. This feature is not finished.
 
 ## Documentation
-Visit the [wiki](https://github.com/hyperdefined/BungeeBlockVersion/wiki) for help.
+Visit the [wiki](https://docs.hyper.lol/bungeeblockversion) for help.
 
 ## License
 This plugin is released under GNU General Public License v3. See [LICENSE](https://github.com/hyperdefined/BungeeBlockVersion/blob/master/LICENSE).
