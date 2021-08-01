@@ -17,6 +17,10 @@
 
 package lol.hyper.bungeeblockversion;
 
+import lol.hyper.bungeeblockversion.commands.CommandReload;
+import lol.hyper.bungeeblockversion.tools.ConfigHandler;
+import lol.hyper.bungeeblockversion.tools.UpdateChecker;
+import lol.hyper.bungeeblockversion.tools.VersionToStrings;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.ServerPing;
