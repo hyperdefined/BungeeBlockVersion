@@ -43,6 +43,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.Iterator;
 import java.util.List;
 
 public class ConfigHandler {
@@ -87,9 +88,14 @@ public class ConfigHandler {
             } else {
                 bungeeBlockVersion.logger.info("Loaded " + versions.size() + " versions!");
             }
-            for (Integer i : versions) {
-                if (!VersionToStrings.versionStrings.containsKey(i)) {
-                    bungeeBlockVersion.logger.warning("Version " + i + " is NOT a valid version number!");
+
+            // use an iterator here so we can remove stuff
+            Iterator<Integer> iter = versions.iterator();
+            while (iter.hasNext()) {
+                int version = iter.next();
+                if (!VersionToStrings.versionStrings.containsKey(version)) {
+                    bungeeBlockVersion.logger.warning("Version " + version + " is NOT a valid version number! Ignoring this version.");
+                    iter.remove();
                 }
             }
         } catch (IOException e) {
