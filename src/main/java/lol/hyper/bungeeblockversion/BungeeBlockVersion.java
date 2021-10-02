@@ -37,7 +37,7 @@ import java.util.logging.Logger;
 
 public final class BungeeBlockVersion extends Plugin implements Listener {
 
-    public Logger logger = this.getLogger();
+    public final Logger logger = this.getLogger();
 
     public ConfigHandler configHandler;
 

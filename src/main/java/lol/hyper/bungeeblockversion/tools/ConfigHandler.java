@@ -15,23 +15,6 @@
  * along with BungeeBlockVersion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-/*
- * This file is part of BungeeBlockVersion.
- *
- * BungeeBlockVersion is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * BungeeBlockVersion is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with BungeeBlockVersion.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package lol.hyper.bungeeblockversion.tools;
 
 import lol.hyper.bungeeblockversion.BungeeBlockVersion;
@@ -94,7 +77,8 @@ public class ConfigHandler {
             while (iter.hasNext()) {
                 int version = iter.next();
                 if (!VersionToStrings.versionStrings.containsKey(version)) {
-                    bungeeBlockVersion.logger.warning("Version " + version + " is NOT a valid version number! Ignoring this version.");
+                    bungeeBlockVersion.logger.warning(
+                            "Version " + version + " is NOT a valid version number! Ignoring this version.");
                     iter.remove();
                 }
             }
