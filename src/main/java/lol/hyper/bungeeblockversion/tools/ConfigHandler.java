@@ -78,7 +78,8 @@ public class ConfigHandler {
                 int version = iter.next();
                 if (!VersionToStrings.versionStrings.containsKey(version)) {
                     bungeeBlockVersion.logger.warning(
-                            "Version " + version + " is NOT a valid version number! Ignoring this version.");
+                            "Version " + version
+                                    + " is NOT a valid version number! Ignoring this version.");
                     iter.remove();
                 }
             }
