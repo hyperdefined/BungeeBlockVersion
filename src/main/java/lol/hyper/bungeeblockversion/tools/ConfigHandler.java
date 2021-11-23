@@ -31,7 +31,7 @@ import java.util.List;
 
 public class ConfigHandler {
 
-    public static final Integer CONFIG_VERSION = 2;
+    public static final Integer CONFIG_VERSION = 3;
     public static Configuration configuration;
     public static List<Integer> versions;
     private final BungeeBlockVersion bungeeBlockVersion;

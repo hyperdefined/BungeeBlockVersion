@@ -46,15 +46,13 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
         configHandler = new ConfigHandler(this);
         VersionToStrings.init();
         configHandler.loadConfig();
-        ProxyServer.getInstance().getPluginManager().registerListener(this, this);
         getProxy().getPluginManager().registerCommand(this, new CommandReload("bbvreload", configHandler));
 
         new UpdateChecker(this, 84685).getVersion(version -> {
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
                 logger.info("You are running the latest version.");
             } else {
-                logger.info(
-                        "There is a new version available! Please download at https://www.spigotmc.org/resources/bungeeblockversion.84685/");
+                logger.info("There is a new version available! Please download at https://www.spigotmc.org/resources/bungeeblockversion.84685/");
             }
         });
         Metrics metrics = new Metrics(this, 9392);
@@ -77,18 +75,5 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
             logger.info("Blocking player " + event.getConnection().getName() + " because they are playing on version "
                     + VersionToStrings.versionStrings.get(event.getConnection().getVersion()) + " which is blocked!");
         }
-    }
-
-    @EventHandler
-    public void onServerPing(ProxyPingEvent event) {
-        if (!ConfigHandler.configuration.getBoolean("send-versions-if-outdated")) {
-            return;
-        }
-
-        ServerPing.Protocol protocol = event.getResponse().getVersion();
-        if (ConfigHandler.versions.contains(protocol.getProtocol())) {
-            protocol.setProtocol(Collections.min(ConfigHandler.versions));
-        }
-        protocol.setName(VersionToStrings.allowedVersions(ConfigHandler.versions));
     }
 }

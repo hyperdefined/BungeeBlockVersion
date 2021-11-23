@@ -61,6 +61,7 @@ public class VersionToStrings {
 
     /**
      * Builds a string that will show what versions the server supports. Example: 1.8 to 1.14.4
+     *
      * @param deniedVersions Versions to deny.
      * @return Returns the string of versions.
      */
