@@ -69,6 +69,9 @@ public class VersionToStrings {
     public static String allowedVersions(List<Integer> deniedVersions) {
         List<Integer> allVersions = new ArrayList<>(versionStrings.keySet());
         allVersions.removeAll(deniedVersions);
+        if (allVersions.isEmpty()) {
+            return "none";
+        }
         int minVersion = Collections.min(allVersions);
         int maxVersion = Collections.max(allVersions);
 
