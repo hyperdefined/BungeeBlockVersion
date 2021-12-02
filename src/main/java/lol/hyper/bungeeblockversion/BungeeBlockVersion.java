@@ -23,16 +23,13 @@ import lol.hyper.bungeeblockversion.tools.UpdateChecker;
 import lol.hyper.bungeeblockversion.tools.VersionToStrings;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.ServerPing;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.event.LoginEvent;
-import net.md_5.bungee.api.event.ProxyPingEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
 import org.bstats.bungeecord.Metrics;
 
-import java.util.Collections;
 import java.util.logging.Logger;
 
 public final class BungeeBlockVersion extends Plugin implements Listener {
@@ -47,6 +44,7 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
         VersionToStrings.init();
         configHandler.loadConfig();
         getProxy().getPluginManager().registerCommand(this, new CommandReload("bbvreload", configHandler));
+        ProxyServer.getInstance().getPluginManager().registerListener(this, this);
 
         new UpdateChecker(this, 84685).getVersion(version -> {
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
