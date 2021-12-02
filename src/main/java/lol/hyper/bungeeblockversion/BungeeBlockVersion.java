@@ -19,8 +19,9 @@ package lol.hyper.bungeeblockversion;
 
 import lol.hyper.bungeeblockversion.commands.CommandReload;
 import lol.hyper.bungeeblockversion.tools.ConfigHandler;
-import lol.hyper.bungeeblockversion.tools.UpdateChecker;
 import lol.hyper.bungeeblockversion.tools.VersionToStrings;
+import lol.hyper.githubreleaseapi.GitHubRelease;
+import lol.hyper.githubreleaseapi.GitHubReleaseAPI;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -30,6 +31,7 @@ import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
 import org.bstats.bungeecord.Metrics;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 public final class BungeeBlockVersion extends Plugin implements Listener {
@@ -46,14 +48,8 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
         getProxy().getPluginManager().registerCommand(this, new CommandReload("bbvreload", configHandler));
         ProxyServer.getInstance().getPluginManager().registerListener(this, this);
 
-        new UpdateChecker(this, 84685).getVersion(version -> {
-            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
-                logger.info("You are running the latest version.");
-            } else {
-                logger.info("There is a new version available! Please download at https://www.spigotmc.org/resources/bungeeblockversion.84685/");
-            }
-        });
-        Metrics metrics = new Metrics(this, 9392);
+        new Metrics(this, 9392);
+        ProxyServer.getInstance().getScheduler().runAsync(this, this::checkForUpdates);
     }
 
     @EventHandler
@@ -72,6 +68,29 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
             event.setCancelReason(new TextComponent(ChatColor.translateAlternateColorCodes('&', blockedMessage)));
             logger.info("Blocking player " + event.getConnection().getName() + " because they are playing on version "
                     + VersionToStrings.versionStrings.get(event.getConnection().getVersion()) + " which is blocked!");
+        }
+    }
+
+    public void checkForUpdates() {
+        GitHubReleaseAPI api;
+        try {
+            api = new GitHubReleaseAPI("BungeeBlockVersion", "hyperdefined");
+        } catch (IOException e) {
+            logger.warning("Unable to check updates!");
+            e.printStackTrace();
+            return;
+        }
+        GitHubRelease current = api.getReleaseByTag(this.getDescription().getVersion());
+        GitHubRelease latest = api.getLatestVersion();
+        if (current == null) {
+            logger.warning("You are running a version that does not exist on GitHub. If you are in a dev environment, you can ignore this. Otherwise, this is a bug!");
+            return;
+        }
+        int buildsBehind = api.getBuildsBehind(current);
+        if (buildsBehind == 0) {
+            logger.info("You are running the latest version.");
+        } else {
+            logger.warning("A new version is available (" + latest.getTagVersion() + ")! You are running version " + current.getTagVersion() + ". You are " + buildsBehind + " version(s) behind.");
         }
     }
 }
