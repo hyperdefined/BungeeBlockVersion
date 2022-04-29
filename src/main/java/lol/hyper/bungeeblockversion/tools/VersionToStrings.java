@@ -27,7 +27,7 @@ public class VersionToStrings {
     // Set a list of version strings we can grab via the version number.
     public static final HashMap<Integer, String> versionStrings = new HashMap<>();
 
-    public static void init() {
+    static {
         versionStrings.put(47, "1.8");
         versionStrings.put(107, "1.9");
         versionStrings.put(108, "1.9.1");

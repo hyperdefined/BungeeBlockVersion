@@ -17,28 +17,28 @@
 
 package lol.hyper.bungeeblockversion.commands;
 
-import lol.hyper.bungeeblockversion.tools.ConfigHandler;
-import net.md_5.bungee.api.ChatColor;
+import lol.hyper.bungeeblockversion.BungeeBlockVersion;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;
 
 public class CommandReload extends Command {
 
-    private final ConfigHandler configHandler;
+    private final BungeeBlockVersion bungeeBlockVersion;
 
-    public CommandReload(String name, ConfigHandler configHandler) {
+    public CommandReload(String name, BungeeBlockVersion bungeeBlockVersion) {
         super(name);
-        this.configHandler = configHandler;
+        this.bungeeBlockVersion = bungeeBlockVersion;
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (sender.hasPermission("bbv.reload")) {
-            configHandler.loadConfig();
-            sender.sendMessage(new TextComponent(ChatColor.GREEN + "Config reloaded!"));
+            bungeeBlockVersion.getAdventure().sender(sender).sendMessage(Component.text("Config reloaded!").color(NamedTextColor.GREEN));
+            bungeeBlockVersion.configHandler.loadConfig();
         } else {
-            sender.sendMessage(new TextComponent(ChatColor.RED + "You do not have permission to reload!"));
+            bungeeBlockVersion.getAdventure().sender(sender).sendMessage(Component.text("You do not have permission for this command.").color(NamedTextColor.RED));
         }
     }
 }
