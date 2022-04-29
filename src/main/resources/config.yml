@@ -40,4 +40,4 @@ versions:
 disconnect-message: "<red>You cannot connect with this version! We only allow version(s) {VERSIONS}.</red>"
 
 # No touch please :)
-config-version: 3
+config-version: 4
