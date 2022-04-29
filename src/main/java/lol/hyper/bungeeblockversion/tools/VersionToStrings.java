@@ -71,7 +71,7 @@ public class VersionToStrings {
         List<Integer> allVersions = new ArrayList<>(versionStrings.keySet());
         allVersions.removeAll(deniedVersions);
         if (allVersions.isEmpty()) {
-            return "none";
+            return null;
         }
         int minVersion = Collections.min(allVersions);
         int maxVersion = Collections.max(allVersions);

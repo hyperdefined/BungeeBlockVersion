@@ -45,8 +45,12 @@ public class JoinEvent implements Listener {
         if (ConfigHandler.versions.contains(event.getConnection().getVersion())) {
             event.setCancelled(true);
             String blockedMessage = ConfigHandler.configuration.getString("disconnect-message");
+            String allowedVersions = VersionToStrings.allowedVersions(ConfigHandler.versions);
+            if (allowedVersions == null) {
+                blockedMessage = "<red>All versions are currently blocked from playing.</red>";
+            }
             if (blockedMessage.contains("{VERSIONS}")) {
-                blockedMessage = blockedMessage.replace("{VERSIONS}", VersionToStrings.allowedVersions(ConfigHandler.versions));
+                blockedMessage = blockedMessage.replace("{VERSIONS}", allowedVersions);
             }
             Component blockedMessageComponent = bungeeBlockVersion.miniMessage.deserialize(blockedMessage);
             BaseComponent blockedMessageBaseComponent = new TextComponent(BungeeComponentSerializer.get().serialize(blockedMessageComponent));

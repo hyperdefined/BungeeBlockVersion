@@ -38,7 +38,7 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
 
     public ConfigHandler configHandler;
     public JoinEvent joinEvent;
-    public MiniMessage miniMessage = MiniMessage.miniMessage();
+    public final MiniMessage miniMessage = MiniMessage.miniMessage();
     private BungeeAudiences adventure;
 
     @Override
