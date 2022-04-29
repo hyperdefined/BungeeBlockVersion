@@ -31,9 +31,8 @@ import java.util.List;
 
 public class ConfigHandler {
 
-    public static final Integer CONFIG_VERSION = 4;
-    public static Configuration configuration;
-    public static List<Integer> versions;
+    public Configuration configuration;
+    public List<Integer> versions;
     private final BungeeBlockVersion bungeeBlockVersion;
 
     public ConfigHandler(BungeeBlockVersion bungeeBlockVersion) {
@@ -60,6 +59,7 @@ public class ConfigHandler {
             configuration =
                     ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
             versions = configuration.getIntList("versions");
+            Integer CONFIG_VERSION = 4;
             if (configuration.getInt("config-version") != CONFIG_VERSION) {
                 bungeeBlockVersion.logger.warning(
                         "Your config is outdated. We will attempt to load your current config. However, things might not work!");

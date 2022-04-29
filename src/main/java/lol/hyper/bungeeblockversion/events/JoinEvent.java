@@ -42,10 +42,10 @@ public class JoinEvent implements Listener {
             return;
         }
 
-        if (ConfigHandler.versions.contains(event.getConnection().getVersion())) {
+        if (bungeeBlockVersion.configHandler.versions.contains(event.getConnection().getVersion())) {
             event.setCancelled(true);
-            String blockedMessage = ConfigHandler.configuration.getString("disconnect-message");
-            String allowedVersions = VersionToStrings.allowedVersions(ConfigHandler.versions);
+            String blockedMessage = bungeeBlockVersion.configHandler.configuration.getString("disconnect-message");
+            String allowedVersions = VersionToStrings.allowedVersions(bungeeBlockVersion.configHandler.versions);
             if (allowedVersions == null) {
                 blockedMessage = "<red>All versions are currently blocked from playing.</red>";
             }
