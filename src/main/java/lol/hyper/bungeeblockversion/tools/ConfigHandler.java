@@ -28,11 +28,12 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ConfigHandler {
 
     public Configuration configuration;
-    public List<Integer> versions;
+    public List<Integer> blockedVersions;
     private final BungeeBlockVersion bungeeBlockVersion;
 
     public ConfigHandler(BungeeBlockVersion bungeeBlockVersion) {
@@ -58,7 +59,7 @@ public class ConfigHandler {
         try {
             configuration =
                     ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
-            versions = configuration.getIntList("versions");
+            blockedVersions = configuration.getIntList("versions");
             int CONFIG_VERSION = 4;
             if (configuration.getInt("config-version") != CONFIG_VERSION) {
                 bungeeBlockVersion.logger.warning(
@@ -66,14 +67,14 @@ public class ConfigHandler {
                 bungeeBlockVersion.logger.warning(
                         "To fix this, delete your current config and let the server remake it.");
             }
-            if (versions.size() == 0) {
+            if (blockedVersions.size() == 0) {
                 bungeeBlockVersion.logger.warning("There are no versions listed in the config!");
             } else {
-                bungeeBlockVersion.logger.info("Loaded " + versions.size() + " versions!");
+                bungeeBlockVersion.logger.info("Loaded " + blockedVersions.size() + " versions!");
             }
-
+            bungeeBlockVersion.logger.info("Loaded versions: " + blockedVersions.stream().map(String::valueOf).collect(Collectors.joining(", ")));
             // use an iterator here so we can remove stuff
-            Iterator<Integer> iter = versions.iterator();
+            Iterator<Integer> iter = blockedVersions.iterator();
             while (iter.hasNext()) {
                 int version = iter.next();
                 if (!VersionToStrings.versionStrings.containsKey(version)) {

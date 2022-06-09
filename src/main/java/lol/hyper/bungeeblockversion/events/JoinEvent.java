@@ -18,7 +18,6 @@
 package lol.hyper.bungeeblockversion.events;
 
 import lol.hyper.bungeeblockversion.BungeeBlockVersion;
-import lol.hyper.bungeeblockversion.tools.ConfigHandler;
 import lol.hyper.bungeeblockversion.tools.VersionToStrings;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.bungeecord.BungeeComponentSerializer;
@@ -42,10 +41,12 @@ public class JoinEvent implements Listener {
             return;
         }
 
-        if (bungeeBlockVersion.configHandler.versions.contains(event.getConnection().getVersion())) {
+        int version = event.getConnection().getVersion();
+        bungeeBlockVersion.logger.info("Player is connecting with protocol version: " + version);
+        if (bungeeBlockVersion.configHandler.blockedVersions.contains(version)) {
             event.setCancelled(true);
             String blockedMessage = bungeeBlockVersion.configHandler.configuration.getString("disconnect-message");
-            String allowedVersions = VersionToStrings.allowedVersions(bungeeBlockVersion.configHandler.versions);
+            String allowedVersions = VersionToStrings.allowedVersions(bungeeBlockVersion.configHandler.blockedVersions);
             if (allowedVersions == null) {
                 blockedMessage = "<red>All versions are currently blocked from playing.</red>";
             }
