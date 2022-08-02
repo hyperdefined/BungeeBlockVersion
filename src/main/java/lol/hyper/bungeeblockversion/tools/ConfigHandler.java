@@ -60,7 +60,7 @@ public class ConfigHandler {
             configuration =
                     ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
             blockedVersions = configuration.getIntList("versions");
-            int CONFIG_VERSION = 4;
+            int CONFIG_VERSION = 5;
             if (configuration.getInt("config-version") != CONFIG_VERSION) {
                 bungeeBlockVersion.logger.warning(
                         "Your config is outdated. We will attempt to load your current config. However, things might not work!");

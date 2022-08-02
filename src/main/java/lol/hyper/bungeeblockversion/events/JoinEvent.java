@@ -42,7 +42,9 @@ public class JoinEvent implements Listener {
         }
 
         int version = event.getConnection().getVersion();
-        bungeeBlockVersion.logger.info("Player is connecting with protocol version: " + version);
+        if (bungeeBlockVersion.configHandler.configuration.getBoolean("log-connection-versions")) {
+            bungeeBlockVersion.logger.info("Player is connecting with protocol version: " + version);
+        }
         if (bungeeBlockVersion.configHandler.blockedVersions.contains(version)) {
             event.setCancelled(true);
             String blockedMessage = bungeeBlockVersion.configHandler.configuration.getString("disconnect-message");
