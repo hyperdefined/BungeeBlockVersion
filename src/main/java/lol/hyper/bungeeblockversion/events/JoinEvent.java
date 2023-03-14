@@ -40,26 +40,28 @@ public class JoinEvent implements Listener {
         if (event.isCancelled()) {
             return;
         }
-
         int version = event.getConnection().getVersion();
         if (bungeeBlockVersion.configHandler.configuration.getBoolean("log-connection-versions")) {
             bungeeBlockVersion.logger.info("Player is connecting with protocol version: " + version);
         }
-        if (bungeeBlockVersion.configHandler.blockedVersions.contains(version)) {
-            event.setCancelled(true);
-            String blockedMessage = bungeeBlockVersion.configHandler.configuration.getString("disconnect-message");
-            String allowedVersions = VersionToStrings.allowedVersions(bungeeBlockVersion.configHandler.blockedVersions);
-            if (allowedVersions == null) {
-                blockedMessage = "<red>All versions are currently blocked from playing.</red>";
-            }
-            if (blockedMessage.contains("{VERSIONS}")) {
-                blockedMessage = blockedMessage.replace("{VERSIONS}", allowedVersions);
-            }
-            Component blockedMessageComponent = bungeeBlockVersion.miniMessage.deserialize(blockedMessage);
-            BaseComponent blockedMessageBaseComponent = new TextComponent(BungeeComponentSerializer.get().serialize(blockedMessageComponent));
-            event.setCancelReason(blockedMessageBaseComponent);
-            bungeeBlockVersion.logger.info("Blocking player " + event.getConnection().getName() + " because they are playing on version "
-                    + VersionToStrings.versionStrings.get(event.getConnection().getVersion()) + " which is blocked!");
+
+        if (!bungeeBlockVersion.configHandler.blockedVersions.contains(version)) {
+            return;
         }
+
+        event.setCancelled(true);
+        String blockedMessage = bungeeBlockVersion.configHandler.configuration.getString("disconnect-message");
+        String allowedVersions = VersionToStrings.allowedVersions(bungeeBlockVersion.configHandler.blockedVersions);
+        if (allowedVersions == null) {
+            blockedMessage = "<red>All versions are currently blocked from playing.</red>";
+        }
+        if (blockedMessage.contains("{VERSIONS}")) {
+            blockedMessage = blockedMessage.replace("{VERSIONS}", allowedVersions);
+        }
+        Component blockedMessageComponent = bungeeBlockVersion.miniMessage.deserialize(blockedMessage);
+        BaseComponent blockedMessageBaseComponent = new TextComponent(BungeeComponentSerializer.get().serialize(blockedMessageComponent));
+        event.setCancelReason(blockedMessageBaseComponent);
+        bungeeBlockVersion.logger.info("Blocking player " + event.getConnection().getName() + " because they are playing on version "
+                + VersionToStrings.versionMap.get(event.getConnection().getVersion()) + " which is blocked!");
     }
 }

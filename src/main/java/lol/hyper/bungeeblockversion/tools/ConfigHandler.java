@@ -21,6 +21,7 @@ import lol.hyper.bungeeblockversion.BungeeBlockVersion;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
+import net.md_5.bungee.protocol.ProtocolConstants;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,8 +68,9 @@ public class ConfigHandler {
                 bungeeBlockVersion.logger.warning(
                         "To fix this, delete your current config and let the server remake it.");
             }
-            if (blockedVersions.size() == 0) {
-                bungeeBlockVersion.logger.warning("There are no versions listed in the config!");
+            if (blockedVersions.isEmpty()) {
+                bungeeBlockVersion.logger.warning("There are no versions listed in the config! There will be no attempts to block connections.");
+                return;
             } else {
                 bungeeBlockVersion.logger.info("Loaded " + blockedVersions.size() + " versions!");
             }
@@ -77,7 +79,7 @@ public class ConfigHandler {
             Iterator<Integer> iter = blockedVersions.iterator();
             while (iter.hasNext()) {
                 int version = iter.next();
-                if (!VersionToStrings.versionStrings.containsKey(version)) {
+                if (!ProtocolConstants.SUPPORTED_VERSION_IDS.contains(version)) {
                     bungeeBlockVersion.logger.warning(
                             "Version " + version
                                     + " is NOT a valid version number! Ignoring this version.");

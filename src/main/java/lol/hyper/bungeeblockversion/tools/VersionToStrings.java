@@ -17,6 +17,8 @@
 
 package lol.hyper.bungeeblockversion.tools;
 
+import net.md_5.bungee.protocol.ProtocolConstants;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,45 +27,46 @@ import java.util.List;
 public class VersionToStrings {
 
     // Set a list of version strings we can grab via the version number.
-    public static final HashMap<Integer, String> versionStrings = new HashMap<>();
+    public static final HashMap<Integer, String> versionMap = new HashMap<>();
 
     static {
-        versionStrings.put(47, "1.8");
-        versionStrings.put(107, "1.9");
-        versionStrings.put(108, "1.9.1");
-        versionStrings.put(109, "1.9.2");
-        versionStrings.put(110, "1.9.4");
-        versionStrings.put(210, "1.10");
-        versionStrings.put(315, "1.11");
-        versionStrings.put(316, "1.11.1");
-        versionStrings.put(335, "1.12");
-        versionStrings.put(338, "1.12.1");
-        versionStrings.put(340, "1.12.2");
-        versionStrings.put(393, "1.13");
-        versionStrings.put(401, "1.13.1");
-        versionStrings.put(404, "1.13.2");
-        versionStrings.put(477, "1.14");
-        versionStrings.put(480, "1.14.1");
-        versionStrings.put(485, "1.14.2");
-        versionStrings.put(490, "1.14.3");
-        versionStrings.put(498, "1.14.4");
-        versionStrings.put(573, "1.15");
-        versionStrings.put(575, "1.15.1");
-        versionStrings.put(578, "1.15.2");
-        versionStrings.put(735, "1.16");
-        versionStrings.put(736, "1.16.1");
-        versionStrings.put(751, "1.16.2");
-        versionStrings.put(753, "1.16.3");
-        versionStrings.put(754, "1.16.4");
-        versionStrings.put(755, "1.17");
-        versionStrings.put(756, "1.17.1");
-        versionStrings.put(757, "1.18");
-        versionStrings.put(758, "1.18.2");
-        versionStrings.put(759, "1.19");
-        versionStrings.put(760, "1.19.2");
-        versionStrings.put(761, "1.19.3");
+        versionMap.put(47, "1.8");
+        versionMap.put(107, "1.9");
+        versionMap.put(108, "1.9.1");
+        versionMap.put(109, "1.9.2");
+        versionMap.put(110, "1.9.4");
+        versionMap.put(210, "1.10");
+        versionMap.put(315, "1.11");
+        versionMap.put(316, "1.11.1");
+        versionMap.put(335, "1.12");
+        versionMap.put(338, "1.12.1");
+        versionMap.put(340, "1.12.2");
+        versionMap.put(393, "1.13");
+        versionMap.put(401, "1.13.1");
+        versionMap.put(404, "1.13.2");
+        versionMap.put(477, "1.14");
+        versionMap.put(480, "1.14.1");
+        versionMap.put(485, "1.14.2");
+        versionMap.put(490, "1.14.3");
+        versionMap.put(498, "1.14.4");
+        versionMap.put(573, "1.15");
+        versionMap.put(575, "1.15.1");
+        versionMap.put(578, "1.15.2");
+        versionMap.put(735, "1.16");
+        versionMap.put(736, "1.16.1");
+        versionMap.put(751, "1.16.2");
+        versionMap.put(753, "1.16.3");
+        versionMap.put(754, "1.16.4");
+        versionMap.put(755, "1.17");
+        versionMap.put(756, "1.17.1");
+        versionMap.put(757, "1.18");
+        versionMap.put(758, "1.18.2");
+        versionMap.put(759, "1.19");
+        versionMap.put(760, "1.19.2");
+        versionMap.put(761, "1.19.3");
+        versionMap.put(762, "1.19.4");
     }
-
+    
     /**
      * Builds a string that will show what versions the server supports. Example: 1.8 to 1.14.4
      *
@@ -71,7 +74,7 @@ public class VersionToStrings {
      * @return Returns the string of versions.
      */
     public static String allowedVersions(List<Integer> deniedVersions) {
-        List<Integer> allVersions = new ArrayList<>(versionStrings.keySet());
+        List<Integer> allVersions = new ArrayList<>(ProtocolConstants.SUPPORTED_VERSION_IDS);
         allVersions.removeAll(deniedVersions);
         if (allVersions.isEmpty()) {
             return null;
@@ -79,6 +82,6 @@ public class VersionToStrings {
         int minVersion = Collections.min(allVersions);
         int maxVersion = Collections.max(allVersions);
 
-        return versionStrings.get(minVersion) + " to " + versionStrings.get(maxVersion);
+        return versionMap.get(minVersion) + " to " + versionMap.get(maxVersion);
     }
 }
