@@ -53,7 +53,7 @@ public class JoinEvent implements Listener {
         String blockedMessage = bungeeBlockVersion.configHandler.configuration.getString("disconnect-message");
         String allowedVersions = VersionToStrings.allowedVersions(bungeeBlockVersion.configHandler.blockedVersions);
         if (allowedVersions == null) {
-            blockedMessage = "<red>All versions are currently blocked from playing.</red>";
+            blockedMessage = "<red>All versions are currently blocked from playing.";
         }
         if (blockedMessage.contains("{VERSIONS}")) {
             blockedMessage = blockedMessage.replace("{VERSIONS}", allowedVersions);

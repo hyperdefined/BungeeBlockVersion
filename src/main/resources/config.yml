@@ -37,12 +37,12 @@ versions:
   - 760 # this will show up as 1.19.2 because 1.19.1 and .2 share the same protocol version
   - 761
   - 762
-  - 763
+  - 763 # will show up as 1.20.1 because 1.20 and 1.20.1 use the same version
 
 # Send this message if someone connects with a blocked version.
 # Use {VERSIONS} to show what versions your server uses. It will display like "1.8 to 1.16.3" or whatever.
 # If you don't want to use {VERSIONS}, just remove it.
-disconnect-message: "<red>You cannot connect with this version! We only allow version(s) {VERSIONS}.</red>"
+disconnect-message: "<red>You cannot connect with this version! We only allow version(s) {VERSIONS}."
 
 # This will say "Player is connecting with protocol version" when someone joins.
 # This is off by default to not spam your console, but you can enable it for debug reasons.
