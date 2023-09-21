@@ -66,6 +66,7 @@ public class VersionToStrings {
         versionMap.put(761, "1.19.3");
         versionMap.put(762, "1.19.4");
         versionMap.put(763, "1.20.1");
+        versionMap.put(764, "1.20.2");
     }
     
     /**
