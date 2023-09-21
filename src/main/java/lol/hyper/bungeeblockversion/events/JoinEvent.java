@@ -61,7 +61,6 @@ public class JoinEvent implements Listener {
         Component blockedMessageComponent = bungeeBlockVersion.miniMessage.deserialize(blockedMessage);
         BaseComponent blockedMessageBaseComponent = new TextComponent(BungeeComponentSerializer.get().serialize(blockedMessageComponent));
         event.setCancelReason(blockedMessageBaseComponent);
-        bungeeBlockVersion.logger.info("Blocking player " + event.getConnection().getName() + " because they are playing on version "
-                + VersionToStrings.versionMap.get(event.getConnection().getVersion()) + " which is blocked!");
+        bungeeBlockVersion.logger.info("Blocking player " + event.getConnection().getName() + " because they are playing on version " + VersionToStrings.versionMap.get(event.getConnection().getVersion()) + " which is blocked!");
     }
 }

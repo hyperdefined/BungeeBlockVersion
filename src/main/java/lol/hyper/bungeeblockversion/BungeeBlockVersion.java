@@ -78,7 +78,7 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
     }
 
     public BungeeAudiences getAdventure() {
-        if(this.adventure == null) {
+        if (this.adventure == null) {
             throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
         }
         return this.adventure;

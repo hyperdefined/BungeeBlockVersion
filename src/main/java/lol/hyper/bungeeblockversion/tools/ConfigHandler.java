@@ -58,15 +58,12 @@ public class ConfigHandler {
             }
         }
         try {
-            configuration =
-                    ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
+            configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
             blockedVersions = configuration.getIntList("versions");
             int CONFIG_VERSION = 5;
             if (configuration.getInt("config-version") != CONFIG_VERSION) {
-                bungeeBlockVersion.logger.warning(
-                        "Your config is outdated. We will attempt to load your current config. However, things might not work!");
-                bungeeBlockVersion.logger.warning(
-                        "To fix this, delete your current config and let the server remake it.");
+                bungeeBlockVersion.logger.warning("Your config is outdated. We will attempt to load your current config. However, things might not work!");
+                bungeeBlockVersion.logger.warning("To fix this, delete your current config and let the server remake it.");
             }
             if (blockedVersions.isEmpty()) {
                 bungeeBlockVersion.logger.warning("There are no versions listed in the config! There will be no attempts to block connections.");
@@ -80,9 +77,7 @@ public class ConfigHandler {
             while (iter.hasNext()) {
                 int version = iter.next();
                 if (!ProtocolConstants.SUPPORTED_VERSION_IDS.contains(version)) {
-                    bungeeBlockVersion.logger.warning(
-                            "Version " + version
-                                    + " is NOT a valid version number! Ignoring this version.");
+                    bungeeBlockVersion.logger.warning("Version " + version + " is NOT a valid version number! Ignoring this version.");
                     iter.remove();
                 }
             }

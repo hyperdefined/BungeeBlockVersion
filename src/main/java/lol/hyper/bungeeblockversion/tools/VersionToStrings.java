@@ -68,7 +68,7 @@ public class VersionToStrings {
         versionMap.put(763, "1.20.1");
         versionMap.put(764, "1.20.2");
     }
-    
+
     /**
      * Builds a string that will show what versions the server supports. Example: 1.8 to 1.14.4
      *
