@@ -19,15 +19,12 @@ package lol.hyper.bungeeblockversion.tools;
 
 import net.md_5.bungee.protocol.ProtocolConstants;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class VersionToStrings {
 
     // Set a list of version strings we can grab via the version number.
-    public static final HashMap<Integer, String> versionMap = new HashMap<>();
+    public static final Map<Integer, String> versionMap = new HashMap<>();
 
     static {
         versionMap.put(47, "1.8");
