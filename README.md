@@ -1,7 +1,7 @@
 <h1 align="center">BungeeBlockVersion</h1>
 
 <p align="center">
-	<img src="https://img.shields.io/badge/Minecraft-1.7--1.20.3-orange" alt="Minecraft versions">
+	<img src="https://img.shields.io/badge/Minecraft-1.7--1.20.4-orange" alt="Minecraft versions">
 	<img src="https://img.shields.io/github/v/release/hyperdefined/BungeeBlockVersion" alt="GitHub release (latest by date)">
 	<a href="https://github.com/hyperdefined/BungeeBlockVersion/releases"><img src="https://img.shields.io/github/downloads/hyperdefined/BungeeBlockVersion/total?logo=github" alt="Downloads"></a>
 	<a href="https://ko-fi.com/hyperdefined"><img src="https://img.shields.io/badge/Donate-Ko--fi-red" alt="Donate via Ko-fi"></a>
