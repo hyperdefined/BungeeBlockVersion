@@ -18,7 +18,6 @@
 package lol.hyper.bungeeblockversion.events;
 
 import lol.hyper.bungeeblockversion.BungeeBlockVersion;
-import lol.hyper.bungeeblockversion.tools.VersionToStrings;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.bungeecord.BungeeComponentSerializer;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -26,6 +25,11 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.event.LoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
+import net.md_5.bungee.protocol.ProtocolConstants;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class JoinEvent implements Listener {
 
@@ -41,6 +45,7 @@ public class JoinEvent implements Listener {
             return;
         }
         int version = event.getConnection().getVersion();
+        String playerName = event.getConnection().getName();
         if (bungeeBlockVersion.configHandler.configuration.getBoolean("log-connection-versions")) {
             bungeeBlockVersion.logger.info("Player is connecting with protocol version: " + version);
         }
@@ -51,7 +56,7 @@ public class JoinEvent implements Listener {
 
         event.setCancelled(true);
         String blockedMessage = bungeeBlockVersion.configHandler.configuration.getString("disconnect-message");
-        String allowedVersions = VersionToStrings.allowedVersions(bungeeBlockVersion.configHandler.blockedVersions);
+        String allowedVersions = allowedVersions(bungeeBlockVersion.configHandler.blockedVersions);
         if (allowedVersions == null) {
             blockedMessage = "<red>All versions are currently blocked from playing.";
         }
@@ -60,7 +65,25 @@ public class JoinEvent implements Listener {
         }
         Component blockedMessageComponent = bungeeBlockVersion.miniMessage.deserialize(blockedMessage);
         BaseComponent blockedMessageBaseComponent = new TextComponent(BungeeComponentSerializer.get().serialize(blockedMessageComponent));
-        event.setCancelReason(blockedMessageBaseComponent);
-        bungeeBlockVersion.logger.info("Blocking player " + event.getConnection().getName() + " because they are playing on version " + VersionToStrings.versionMap.get(event.getConnection().getVersion()) + " which is blocked!");
+        event.setReason(blockedMessageBaseComponent);
+        bungeeBlockVersion.logger.info("Blocking player " + playerName + " because they are playing on version " + bungeeBlockVersion.configHandler.versionMap.get(version) + " which is blocked!");
+    }
+
+    /**
+     * Builds a string that will show what versions the server supports. Example: 1.8 to 1.14.4
+     *
+     * @param deniedVersions Versions to deny.
+     * @return Returns the string of versions.
+     */
+    public String allowedVersions(List<Integer> deniedVersions) {
+        List<Integer> allVersions = new ArrayList<>(ProtocolConstants.SUPPORTED_VERSION_IDS);
+        allVersions.removeAll(deniedVersions);
+        if (allVersions.isEmpty()) {
+            return null;
+        }
+        int minVersion = Collections.min(allVersions);
+        int maxVersion = Collections.max(allVersions);
+
+        return bungeeBlockVersion.configHandler.versionMap.get(minVersion) + " to " + bungeeBlockVersion.configHandler.versionMap.get(maxVersion);
     }
 }

@@ -30,6 +30,8 @@ import net.md_5.bungee.api.plugin.Plugin;
 import org.bstats.bungeecord.Metrics;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public final class BungeeBlockVersion extends Plugin implements Listener {
@@ -40,6 +42,8 @@ public final class BungeeBlockVersion extends Plugin implements Listener {
     public JoinEvent joinEvent;
     public final MiniMessage miniMessage = MiniMessage.miniMessage();
     private BungeeAudiences adventure;
+
+    public Map<Integer, String> versions = new HashMap<>();
 
     @Override
     public void onEnable() {

@@ -23,7 +23,7 @@
 
     <groupId>lol.hyper</groupId>
     <artifactId>bungeeblockversion</artifactId>
-    <version>1.4.7</version>
+    <version>1.4.8</version>
     <packaging>jar</packaging>
 
     <name>BungeeBlockVersion</name>
@@ -76,6 +76,10 @@
                             <pattern>lol.hyper.githubreleaseapi</pattern>
                             <shadedPattern>lol.hyper.bungeeblockversion.updater</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>org.json</pattern>
+                            <shadedPattern>lol.hyper.bungeeblockversion.json</shadedPattern>
+                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>
@@ -107,7 +111,7 @@
         <dependency>
             <groupId>net.md-5</groupId>
             <artifactId>bungeecord-api</artifactId>
-            <version>1.20-R0.1</version>
+            <version>1.20-R0.2-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -132,6 +136,12 @@
             <groupId>net.kyori</groupId>
             <artifactId>adventure-platform-bungeecord</artifactId>
             <version>4.3.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20231013</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

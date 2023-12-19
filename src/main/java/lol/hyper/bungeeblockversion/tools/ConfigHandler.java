@@ -22,19 +22,23 @@ import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
 import net.md_5.bungee.protocol.ProtocolConstants;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ConfigHandler {
 
     public Configuration configuration;
     public List<Integer> blockedVersions;
+    public Map<Integer, String> versionMap = new HashMap<>();
     private final BungeeBlockVersion bungeeBlockVersion;
 
     public ConfigHandler(BungeeBlockVersion bungeeBlockVersion) {
@@ -53,8 +57,8 @@ public class ConfigHandler {
                 } else {
                     bungeeBlockVersion.logger.warning("Unable to create config folder!");
                 }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (IOException exception) {
+                throw new RuntimeException(exception);
             }
         }
         try {
@@ -76,14 +80,39 @@ public class ConfigHandler {
             Iterator<Integer> iter = blockedVersions.iterator();
             while (iter.hasNext()) {
                 int version = iter.next();
+                // make sure the versions the user entered exist
                 if (!ProtocolConstants.SUPPORTED_VERSION_IDS.contains(version)) {
                     bungeeBlockVersion.logger.warning("Version " + version + " is NOT a valid version number! Ignoring this version.");
                     iter.remove();
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
             bungeeBlockVersion.logger.severe("Unable to load configuration file!");
         }
+
+        fetchVersions();
+    }
+
+    private void fetchVersions() {
+        bungeeBlockVersion.logger.info("Loading versions from GitHub...");
+        JSONUtils jsonUtils = new JSONUtils(bungeeBlockVersion);
+        JSONObject versions = jsonUtils.requestJSON("https://raw.githubusercontent.com/hyperdefined/BungeeBlockVersion/master/versions.json");
+        if (versions == null) {
+            bungeeBlockVersion.logger.severe("Unable to fetch versions from GitHub!");
+            bungeeBlockVersion.logger.severe("The plugin is unable to function normally.");
+            return;
+        }
+        bungeeBlockVersion.logger.info("Loaded " + versions.length() + " version(s) from GitHub!");
+        // key is the protocol version
+        // value is the name of the version
+        versions.keys().forEachRemaining(key -> {
+            int protocolVersion = Integer.parseInt(key);
+            String namedVersion = versions.getString(key);
+            // make sure the version exists before saving it
+            if (ProtocolConstants.SUPPORTED_VERSION_IDS.contains(protocolVersion)) {
+                versionMap.put(protocolVersion, namedVersion);
+            }
+        });
     }
 }
