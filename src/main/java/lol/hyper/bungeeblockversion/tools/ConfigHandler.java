@@ -22,6 +22,7 @@ import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
 import net.md_5.bungee.protocol.ProtocolConstants;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -95,24 +96,27 @@ public class ConfigHandler {
     }
 
     private void fetchVersions() {
-        bungeeBlockVersion.logger.info("Loading versions from GitHub...");
+        bungeeBlockVersion.logger.info("Loading versions from the web...");
         JSONUtils jsonUtils = new JSONUtils(bungeeBlockVersion);
-        JSONObject versions = jsonUtils.requestJSON("https://raw.githubusercontent.com/hyperdefined/BungeeBlockVersion/master/versions.json");
+        JSONArray versions = jsonUtils.requestJSONArray("https://raw.githubusercontent.com/PrismarineJS/minecraft-data/refs/heads/master/data/pc/common/protocolVersions.json");
         if (versions == null) {
             bungeeBlockVersion.logger.severe("Unable to fetch versions from GitHub!");
             bungeeBlockVersion.logger.severe("The plugin is unable to function normally.");
             return;
         }
-        bungeeBlockVersion.logger.info("Loaded " + versions.length() + " version(s) from GitHub!");
-        // key is the protocol version
-        // value is the name of the version
-        versions.keys().forEachRemaining(key -> {
-            int protocolVersion = Integer.parseInt(key);
-            String namedVersion = versions.getString(key);
-            // make sure the version exists before saving it
-            if (ProtocolConstants.SUPPORTED_VERSION_IDS.contains(protocolVersion)) {
-                versionMap.put(protocolVersion, namedVersion);
+
+        // load versions from the JSON
+        for (int i = 0; i < versions.length(); i++) {
+            JSONObject jsonObject = versions.getJSONObject(i);
+            String minecraftVersion = jsonObject.getString("minecraftVersion");
+            int version = jsonObject.getInt("version");
+            if (ProtocolConstants.SUPPORTED_VERSION_IDS.contains(version)) {
+                // only add the last version with the same id
+                if (!versionMap.containsKey(version)) {
+                    versionMap.put(version, minecraftVersion);
+                }
             }
-        });
+        }
+        bungeeBlockVersion.logger.info("Loaded " + versionMap.size() + " version(s)!");
     }
 }
