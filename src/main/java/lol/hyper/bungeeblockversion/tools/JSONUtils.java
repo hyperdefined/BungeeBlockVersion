@@ -18,6 +18,7 @@
 package lol.hyper.bungeeblockversion.tools;
 
 import lol.hyper.bungeeblockversion.BungeeBlockVersion;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -37,12 +38,12 @@ public class JSONUtils {
     }
 
     /**
-     * Get a JSONObject from a URL.
+     * Get a JSONArray from a URL.
      *
      * @param url The URL to get JSON from.
-     * @return The response JSONObject. Returns null if there was some issue.
+     * @return The response JSONArray. Returns null if there was some issue.
      */
-    public JSONObject requestJSON(String url) {
+    public JSONArray requestJSONArray(String url) {
         String rawJSON;
         try {
             URLConnection conn = new URL(url).openConnection();
@@ -64,6 +65,7 @@ public class JSONUtils {
             bungeeBlockVersion.logger.severe("Read JSON from " + url + " returned an empty string!");
             return null;
         }
-        return new JSONObject(rawJSON);
+
+        return new JSONArray(rawJSON);
     }
 }
